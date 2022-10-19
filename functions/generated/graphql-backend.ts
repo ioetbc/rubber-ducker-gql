@@ -13,18 +13,9 @@ export type Scalars = {
   Float: number;
 };
 
-export type Profile = {
-  __typename?: 'Profile';
-  User?: Maybe<User>;
-  proficiency?: Maybe<Scalars['Int']>;
-  score?: Maybe<Scalars['Int']>;
-  technology?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
 export type Query = {
   __typename?: 'Query';
-  findUsers?: Maybe<Array<Maybe<Profile>>>;
+  findUsers?: Maybe<Array<Maybe<User>>>;
   users?: Maybe<User>;
 };
 
@@ -104,8 +95,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  Profile: ResolverTypeWrapper<Profile>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
@@ -114,24 +103,13 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
-  Int: Scalars['Int'];
-  Profile: Profile;
   Query: {};
   String: Scalars['String'];
   User: User;
 };
 
-export type ProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = {
-  User?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  proficiency?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  technology?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  findUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Profile']>>>, ParentType, ContextType>;
+  findUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   users?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
@@ -142,7 +120,6 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
-  Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

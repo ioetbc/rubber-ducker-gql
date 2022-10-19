@@ -12,70 +12,32 @@ export const resolvers = {
         },
       });
     },
-    findUsers: async (): Promise<any> => {
-      const tings = ["react", "node"];
-      const gmm = await prisma.technology.findMany({
+    findUsers: async (): Promise<User[]> => {
+      const filters = ["react", "node"];
+      const gmm = await prisma.technology.groupBy({
+        by: ["userId"],
+
+        _count: true,
         where: {
-          OR: [
-            {
-              technology: "react",
-              proficiency: {
-                gte: 5,
-              },
-            },
-            {
-              technology: "node",
-              proficiency: {
-                gte: 5,
-              },
-            },
-          ],
-        },
-        orderBy: {
-          proficiency: "desc",
-        },
-        include: {
-          User: {
-            select: {
-              username: true,
-              githubURL: true,
-            },
+          technology: {
+            in: filters,
           },
         },
       });
 
-      // merge array where userId is the same
-      // const merged = gmm.reduce((acc, cur) => {
-      //   const existing = acc.find((item) => item.userId === cur.userId);
-      //   if (existing) {
-      //     existing.score += 1;
-      //   } else {
-      //     acc.push(cur);
-      //   }
-      //   return acc;
-      // }, []);
+      const filtered = gmm
+        .filter((item) => item._count === filters.length)
+        .map((item) => item.userId) as number[];
 
-      // console.log("ayyy", merged);
+      const users = prisma.user.findMany({
+        where: {
+          id: {
+            in: filtered,
+          },
+        },
+      });
 
-      // const sumProficiencies = gmm.reduce((acc, curr) => {
-      //   const found = acc.find((el) => el.userId === curr.userId);
-      //   if (found) {
-      //     const score = (found.proficiency += curr.proficiency);
-      //     found.score = score;
-      //   } else {
-      //     acc.push(curr);
-      //   }
-      //   return acc;
-      // }, []);
-
-      // // sort by proficiency
-      // const sortedProficiencies = sumProficiencies.sort(
-      //   (a, b) => b.proficiency - a.proficiency
-      // );
-
-      // console.log("sumProficiencies", sumProficiencies);
-
-      return gmm;
+      return users;
     },
   },
 };
