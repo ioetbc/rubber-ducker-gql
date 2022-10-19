@@ -38,8 +38,8 @@ app.use(passport.session());
 passport.use(
   new Ting(
     {
-      clientID: "6fbe033d5bbc1dea8538",
-      clientSecret: "5cad73e800a0abf07ff1db4adfe6da13c2ec75db",
+      clientID: "",
+      clientSecret: "",
       callbackURL:
         "http://localhost:5001/rubber-ducker-api-v2/us-central1/app/login/auth/github/callback",
     },
