@@ -1,14 +1,14 @@
 import express = require("express");
-import admin from "firebase-admin";
+// import admin from "firebase-admin";
 import passport from "passport";
 import session from "express-session";
 import cors from "cors";
 import GitHubStrategy = require("passport-github2");
 // import {PrismaClient} from "@prisma/client";
 
-admin.initializeApp({
-  credential: admin.credential.cert("./src/service-account.json"),
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert("./src/service-account.json"),
+// });
 const app = express();
 const Ting = GitHubStrategy.Strategy;
 // const prisma = new PrismaClient();

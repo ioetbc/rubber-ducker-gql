@@ -10,9 +10,11 @@ generator client {
 model Technology {
   id          Int    @id @default(autoincrement())
   userId      Int?
-  technology  String @unique
+  technology  String
   proficiency Int
   User        User?  @relation(fields: [userId], references: [id])
+
+  @@unique([userId, technology])
 }
 
 model User {

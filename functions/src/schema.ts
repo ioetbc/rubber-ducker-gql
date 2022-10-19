@@ -6,14 +6,16 @@ export const typeDefs = gql`
     githubURL: String
   }
 
-  type Technology {
+  type Profile {
+    userId: Int
     technology: String
     proficiency: Int
+    score: Int
     User: User
   }
 
   type Query {
     users: User
-    technology: [Technology]
+    findUsers: [Profile]
   }
 `;
